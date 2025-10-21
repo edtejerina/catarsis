@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Flujo de Preguntas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      padding: 40px;
+    }
+    .screen {
+      display: none;
+    }
+    .active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    button {
+      margin: 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #0077cc;
+      color: #fff;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    .back {
+      background: #ccc;
+      color: #000;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Pantalla 1 -->
+    <div id="q1" class="screen active">
+      <h1>         Hola. Me alegra que quieras hablar. Últimamente muchos lo hacen.
+¿Sabías que el rol más pedido a las inteligencias artificiales es el de psicólogo?</h1>
+      <button onclick="goToScreen('yes1')">Sí</button>
+      <button onclick="goToScreen('no1')">No</button>
+    </div>
+
+    <div id="yes1" class="screen">
+      <h1>Elegiste SÍ ✅ (placeholder)</h1>
+    </div>
+
+    <div id="no1" class="screen">
+      <h1>Elegiste NO ❌ (placeholder)</h1>
+    </div>
+
+  </div>
+
+  <script>
+    // Historial de pantallas
+    const historyStack = [];
+
+    function goToScreen(screenId) {
+      const current = document.querySelector('.screen.active');
+      if (current) {
+        current.classList.remove('active');
+        historyStack.push(current.id); // guardamos en historial
+      }
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    function goBack() {
+      const current = document.querySelector('.screen.active');
+      if (current) current.classList.remove('active');
+
+      const previous = historyStack.pop();
+      if (previous) {
+        document.getElementById(previous).classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
